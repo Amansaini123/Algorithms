@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// In directed weighted graph find shortest path to all other vertex
+// as in undirected graph weight weight edge when converted to directed graph forms a negative cycle 
+// Follows Dynamic programming strategy
+vector<int> bellmanford(int v,int src,vector<vector<int>> edges)
+{
+    // Intially having all the nodes having infinite distance
+    // we are using v+1 nodes as 1 based indexing is in the vector
+    vector<int> dist(v+1,INT_MAX);
+    
+    
+    // All nodes as INT_MAX except the source node
+    dist[src]=0;
+    
+    
+    // relaxing all edges v-1 times
+    for(int i=0;i<v-1;i++){
+        for(auto x:edges){
+            int f=x[0];
+            int t=x[1];
+            int w=x[2];
+            
+            // dist[f]!=INT_MAX we are using because to avoid overflow 
+            // overflow may happen and the next step say INT_MAX +5 say 
+            // i.e at the step of dist[f]+w overflow may happen
+            
+            if(dist[f]!=INT_MAX and dist[t]>dist[f]+w){
+                dist[t]=dist[f]+w;
+            }
+        }
+    }
+    
+    // Checking for negative weight cycle
+    
+    for(auto x:edges){
+        int f=x[0];
+        int t=x[1];
+        int w=x[2];
+        
+        if(dist[f]!=INT_MAX and dist[t]>dist[f]+w){
+                cout<<"neagtive weight cycle ";
+                // exit(0) is used for succesful temination of the code
+                exit(0);
+            }
+    }
+        
+    
+    
+    
+    return dist;
+    
+    
+    
+}
+
+int main()
+{
+    int e,v;
+    cin>>e>>v;
+    
+    vector<vector<int>> edges;
+    
+    for(int i=0;i<e;i++){
+        
+        int from,to,weight;
+        cin>>from>>to>>weight;
+        
+        edges.push_back({from,to,weight});
+    }
+    
+    // say 1 is the source
+    vector<int> dist=bellmanford(v,1,edges);
+    
+    for(int i=1;i<=v;i++){
+        cout<<"distance from src to i is "<<dist[i]<<endl;
+    }
+    
+    
+}
