@@ -1,0 +1,77 @@
+// Rabin Krap string matching algorithm
+// Take large prime number as it increase the number space after mod
+// So less collision with large prime number
+
+
+# include<bits/stdc++.h>
+# define ll long long int 
+# define prime 119
+using namespace std;
+
+ll create_hash(string str,int n){
+    ll result=0;
+    for(int i=0;i<n;i++){
+        // mutiplying the ascii value of character with prime raise to index
+        // typecasting to long long as it may exceed the limit of integer
+        result=(ll)result+(str[i]*(ll)pow(prime,i));
+    }
+    return result;
+}
+
+
+// oldindex --> index which will be subtracted from string while rolling
+// newindex ---> added to the string 
+
+ll recalculate_hash(string str,int oldindex,int newindex,ll oldhash,int pathlength){
+    ll newhash=oldhash-str[oldindex];
+    newhash=newhash/prime;
+    newhash=newhash+(ll)(str[newindex]*(ll)(pow(prime,pathlength-1)));
+    return newhash;
+}
+
+bool check_equal(string str1, string str2, int s1,int e1,int s2,int e2)
+{
+    if(e1-s1!=e2-s2)
+        return false;
+        
+    while(s1<=e1 and s2<=e2){
+        if(str1[s1]!=str2[s2]){
+            return false;            
+        }
+        s1++;
+        s2++;
+    }
+    return true;
+}
+
+int main()
+{
+    string str="ababcabdab";
+    string pat="abd";
+    
+    ll pathash=create_hash(pat,pat.length());
+    ll strhash=create_hash(str,pat.length());
+    
+    for(int i=0;i<=str.length()-pat.length();i++)
+    {
+        // if hash value is equal and string are also char by char equal 
+         if(pathash==strhash and 
+            check_equal(str,pat,i,i+pat.length()-1,0,pat.length()-1)){
+             cout<<i<<endl;
+            }
+        else{
+            if(i<str.length()-pat.length()){
+                strhash=recalculate_hash(str,i,i+pat.length(),strhash,pat.length());
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
