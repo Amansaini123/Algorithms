@@ -5,6 +5,9 @@ using namespace std;
 // In directed weighted graph find shortest path to all other vertex
 // as in undirected graph weight weight edge when converted to directed graph forms a negative cycle 
 // Follows Dynamic programming strategy
+// The idea here is that Relax all the edges v-1 times i.e from src vertex even if the longest distance is off all nodes then also the distance is v-1
+// i.e maximum there can be v-1 edges between two nodes so it will cover all possible path if we relax nodes v-1 times
+
 vector<int> bellmanford(int v,int src,vector<vector<int>> edges)
 {
     // Intially having all the nodes having infinite distance
@@ -13,6 +16,7 @@ vector<int> bellmanford(int v,int src,vector<vector<int>> edges)
     
     
     // All nodes as INT_MAX except the source node
+    // Mark distance of src node to be 0 and all other nodes distance as infinty
     dist[src]=0;
     
     
