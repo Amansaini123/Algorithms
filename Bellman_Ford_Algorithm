@@ -7,6 +7,7 @@ using namespace std;
 // Follows Dynamic programming strategy
 // The idea here is that Relax all the edges v-1 times i.e from src vertex even if the longest distance is off all nodes then also the distance is v-1
 // i.e maximum there can be v-1 edges between two nodes so it will cover all possible path if we relax nodes v-1 times
+// Complexity is 0(v*e) whereas for dijkstra it is v*log(v+e)
 
 vector<int> bellmanford(int v,int src,vector<vector<int>> edges)
 {
