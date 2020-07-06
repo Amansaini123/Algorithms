@@ -9,6 +9,9 @@
 // Relax only those edges which lead to unvisited vertex
 
 
+// Kisi bhi vertex to visit karne ka matlb uska distance freez karna and uske neighbours ko exlpore krna
+
+
 
 
 
