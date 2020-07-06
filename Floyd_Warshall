@@ -1,5 +1,8 @@
-// Floyd warshall 
-// All pair shortest path algorithm
+//  Floyd warshall 
+//  All pair shortest path algorithm
+//  Dynamic Programming i.e explore all the possible outcomes and then pick the best one
+//  Similar to applying dijstra to all the nodes
+//  Say shortest distance via 1 and then do not change the path of 1
 
 # include<bits/stdc++.h>
 # define V 4
