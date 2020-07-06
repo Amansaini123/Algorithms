@@ -2,6 +2,11 @@
 using namespace std;
 
 
+// Remember relax all edges v-1 times
+
+
+
+
 // In directed weighted graph find shortest path to all other vertex
 // as in undirected graph weight weight edge when converted to directed graph forms a negative cycle 
 // Follows Dynamic programming strategy
