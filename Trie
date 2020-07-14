@@ -1,0 +1,98 @@
+// If we want to store the numbers in the database trie is a very good option
+// Just Like in the case of true caller trie is a excellent data structure
+// But tries takes a lot of memory so if we say just have 1000 numbers than hash map is a better option
+
+#include <iostream>
+#include<unordered_map>
+using namespace std;
+
+class Node{
+    public:
+        char data;
+        unordered_map<char,Node*> children;
+        // This is to denote whether the node is terminal or not
+        // i.e end of the current string
+        bool terminal;
+        
+        // By default we are going to keep the value of terminal as false
+        Node(char d){
+            data = d;
+            terminal = false;
+        }
+};
+
+class Trie{
+    Node* root;
+
+    // cnt denotes how many words we have inserted in the trie
+    int cnt;
+
+    public:
+
+    Trie(){
+        root = new Node('\0');
+        cnt = 0;
+    }
+
+    void insert(char *w){
+        
+        // We will start Traversing from the current node
+        // Then we will traverse to all the characters of the node
+        Node* temp = root;
+
+        for(int i=0;w[i]!='\0';i++){
+
+            char ch = w[i];
+
+            // Checking is the given key is present or not
+            if(temp->children.count(ch)){
+                // If present then move temp to that node
+                temp = temp->children[ch];
+            }
+            else{
+                //If not present then create it and fill the address of that node in the hashmap
+                Node* n = new Node(ch);
+                temp->children[ch] = n;
+                temp = n;
+            }
+        }
+        // Last Node for that word would be a terminal
+        temp->terminal = true;
+    }
+
+    bool find(char *w){
+        Node* temp = root;
+        for(int i=0;w[i]!='\0';i++){
+            char ch = w[i];
+            if(temp->children.count(ch)==0){
+                return false;
+            }
+            else{
+                temp = temp->children[ch];
+            }
+        }
+        // We have travesed all the character now we see that that particular word is terminal or not
+        return temp->terminal;
+    }
+};
+
+int main(){
+
+    Trie t;
+    char words[][10]={"a","aman","muskan","not","news","apple","hello"};
+
+    for(int i=0;i<7;i++){
+        t.insert(words[i]);
+    }
+
+    char w[20];
+    cin>>w;
+
+    if(t.find(w)){
+        cout<<"word is present";
+    }
+    else{
+        cout<<"Fuck off";
+    }
+}
+
