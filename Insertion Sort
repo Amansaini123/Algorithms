@@ -1,0 +1,49 @@
+// Insertion Sort 
+
+// Litte more efficient than selection sort and bubble sort in practicle application
+// Initially element till index 0 is in the sorted half and rest in unsorted half
+// We will pick element from unsorted part and put it in the sorted part
+
+
+
+// For loop will always excecute here 
+// But if we have a sorted array while loop will not exceute even once as while
+// condition will never be true in sorted array so in sorted case o(n)
+
+// The worst case here is  reverse sorted array as for i =1 we will have 1 shift in while loop
+// for i=2 we will have 2shift in the loop and so on we i.e in total we will have 1+2+3-----n-1 shifts
+// so O(n^2)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void insertion(int arr[],int n)
+{
+    // We are saying that 0th element is sorted so we will pick numbers from 1 till n-1 and put
+    // them at there respective positions
+    for(int i=1;i<n-1;i++){
+        int value=arr[i];
+        int hole=i;
+        
+        while(hole>0 and arr[hole-1]>value){
+            // We will exit the while loop when loop reaches the 0th index 
+            // or we will exit the loop when hole-1 is smaller element
+        arr[hole]=arr[hole-1];
+        hole--;
+        }// while end 
+        
+        arr[hole]=value;
+    }
+}
+int main()
+{
+    int arr[]={3,2,1,5,4,3,1,2,3,2,3,4,4,5};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    
+    insertion(arr,n);
+    
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<", ";
+    }
+}
+
