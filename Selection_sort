@@ -1,0 +1,34 @@
+// Selection Sort Algorithm
+
+// An inplace sorting Algorithm takes constant amount of extra memory 
+// so Selection sort is not inplace sorting Algorithm
+
+// Select the minimum in each pass and put that at its appropriate position
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void selectionsort(int arr[],int n)
+{
+    // as after n-1 pass the last element will anyway at its appropriate position
+    for(int i=0;i<n-1;i++){
+        int imin=i;
+        for(int j=i+1;j<n;j++){
+            if(arr[j]<arr[imin]){
+                imin=j;
+            }
+        }
+        swap(arr[imin],arr[i]);
+    }
+}
+int main()
+{
+    int arr[]={2,7,4,1,5,3};
+    selectionsort(arr,6);
+    
+    for(int i=0;i<6;i++){
+        cout<<arr[i]<<" ,";
+    }
+}
+
