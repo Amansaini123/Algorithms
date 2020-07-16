@@ -1,0 +1,45 @@
+// Bubble Sort Algorithm
+
+// We will scan the array multiple times and at each scan we will bubble up the
+// largest element in the last of the array 
+
+
+// Best case in O(n) as inner loop will excecute only once to figure out it is already sorted
+// as we are using the flag variable here in the inner loop so we will break the loop in one iteration
+
+
+// And in the best and average case it is o(n2)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void bubbleSort(int arr[],int n)
+{
+    for(int i=0;i<n-1;i++){
+        int flag=0;
+        for(int j=0;j<n-i-1;j++){
+            if(arr[j]>arr[j+1]){
+                swap(arr[j],arr[j+1]);
+                flag=1;
+            }
+        }
+        if(flag==0){
+            break;
+        }
+        
+    }
+}
+
+
+
+int main()
+{
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};  
+    int n = sizeof(arr)/sizeof(arr[0]);  
+    bubbleSort(arr, n);
+    
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<", ";
+    }
+}
+
