@@ -1,0 +1,74 @@
+// Merge sort is time efficient but takes extra space 
+// Hence quick sort is the particle choice but in worst case it is o(n^2) but that can always be avoided
+// however in average cases quick sort takes 0(nlogn) time
+
+// Not a stable algorithm
+
+// Base case is s>=e it will take care of the 2 condition i.e when the segment is invalid then also it will end and when segment is equal then also it will end
+// As sometimes after partion we dont have any left segment to the pivot in that case we need to gracefully exit from the code
+// i.e say Q(0,1) it will call Q(0,-1) This is the invalid case i.e start>end here so in the base case we will wirte s>=e
+// As first partiton happens then only p-1 or so are called so p-1 or p can lead to smaller value than s in that case we have to return back
+// or we can simply wirte s<e
+
+
+
+
+
+
+//  Time complexity Analyics
+//  Partition function is the main part here it will take o(n) time depending on the length of array i.e n say
+//  quick sort will run best in the case of balance partition i.e say n/2
+
+// i.e now say we have middle element partition so quicksort in both the calls will take o(n/2) time each 
+// so the recurance is 2t(n/2)+o(n) i.e nlogn
+
+// Worst case is the when we have totally unbalanced partition i.e when the array is sorted is that case recurrance is
+// t(n-1)+n i.e only one quick function will be called other will simply return 
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int part(int *arr,int s,int e)
+{
+    int pivot=arr[e];
+    int part_index=s;
+    
+    for(int i=s;i<e;i++){
+        if(arr[i]<=pivot){
+            swap(arr[i],arr[part_index]);
+            part_index++;
+        }
+    }
+    swap(arr[part_index],arr[e]);
+    return part_index;
+    
+}
+
+void quick(int arr[],int s,int e)
+{
+    if(s<e){
+        int partitionindex=part(arr,s,e);
+        quick(arr,s,partitionindex-1);
+        quick(arr,partitionindex+1,e);
+    }
+}
+
+
+
+int main()
+{
+    int arr[]={7,6,5,4,3,2,1,4,3,2};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    
+    quick(arr,0,n-1);
+    
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<", ";
+    }
+}
+
+
+
+
