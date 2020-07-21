@@ -1,0 +1,63 @@
+// It Gives nlogn in the worst case unlike many that gives n^2 in the average case
+// Divide and conquer algorithm
+// Stable sorting algorithm
+// Not a inplace algorithm i.e space complexity is 0(n) 
+// Time complexity is 0(nlogn)
+
+#include<bits/stdc++.h>
+
+
+void Merge(int *A,int *L,int leftCount,int *R,int rightCount) {
+	int i,j,k;
+	i = 0; j = 0; k =0;
+
+	while(i<leftCount && j< rightCount) {
+		if(L[i]  < R[j]) A[k++] = L[i++];
+		else A[k++] = R[j++];
+	}
+	while(i < leftCount) A[k++] = L[i++];
+	while(j < rightCount) A[k++] = R[j++];
+}
+
+
+void MergeSort(int *A,int n) {
+	int mid,i, *L, *R;
+  
+  // If the array has less than two element, do nothing.  i.e only one element
+	if(n < 2) return; 
+  
+	mid = n/2;   
+  
+  
+	L = new int[mid*sizeof(int)]; 
+	R = new int[(n- mid)*sizeof(int)]; 
+	
+	for(i = 0;i<mid;i++) L[i] = A[i]; // creating left subarray
+	for(i = mid;i<n;i++) R[i-mid] = A[i]; // creating right subarray
+
+	MergeSort(L,mid);               // ----T(n/2) 
+	MergeSort(R,n-mid);             // ----T(n/2)
+	Merge(A,L,mid,R,n-mid);         // ----O(n)  
+        free(L);                  // Hence adding above 3 we get recurance relation as 2(T(n/2))+n
+        free(R);
+}
+
+int main() {
+	
+	int A[] = {6,2,3,1,9,10,15,13,12,17};  
+	int i,numberOfElements;
+
+  
+  //array is passed to the function because array
+	// is always passed by reference through a pointer. So sizeOf function will give size of pointer and not the array.
+	numberOfElements = sizeof(A)/sizeof(A[0]); 
+
+	
+  
+	MergeSort(A,numberOfElements);
+
+	
+  
+	for(i = 0;i < numberOfElements;i++) printf("%d ",A[i]);
+	return 0;
+}
